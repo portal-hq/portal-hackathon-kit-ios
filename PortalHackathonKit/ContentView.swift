@@ -6,19 +6,194 @@
 //
 
 import SwiftUI
+import PortalSwift
+
+var portal: Portal?
+var clientAPIKey: String?
 
 struct ContentView: View {
+
+    @State var solanaAddress: String? = nil
+    @State var solanaBalance: String? = nil
+    @State var pyusdBalance: String? = nil
+
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Button {
+                generateWallet()
+            } label: {
+                Text("Generate")
+            }
+
+            if let solanaAddress {
+                Text("Solana Address: \(solanaAddress)")
+            }
+
+            if let solanaBalance {
+                Text("Solana Balance: \(solanaBalance)")
+            }
+
+            if let pyusdBalance {
+                Text("PYUSD Balance: \(pyusdBalance)")
+            }
         }
         .padding()
+        .onAppear {
+            initializePortal()
+        }
+        .onChange(of: solanaAddress) {
+            print("changed")
+            getBalance()
+        }
     }
 }
 
 #Preview {
     ContentView()
+}
+
+// MARK: - Create a client
+private extension ContentView {
+    func createClientAPIKey(portalAPIKey: String) async throws -> String {
+        // https://docs.portalhq.io/reference/custodian-api/v3-endpoints#create-a-new-client
+        // https://api.portalhq.io/api/v3/custodians/me/clients, using custodian API Key (959498a9-88ba-40dd-bfa6-2528ce0a26e5)
+
+        struct Response: Decodable {
+            var clientApiKey: String
+        }
+
+        do {
+          if let url = URL(string: "https://api.portalhq.io/api/v3/custodians/me/clients") {
+
+              let requests = PortalRequests()
+              let data = try await requests.post(url, withBearerToken: portalAPIKey)
+              let decoder = JSONDecoder()
+              let response = try decoder.decode(Response.self, from: data)
+              return response.clientApiKey
+          }
+
+          throw URLError(.badURL)
+        } catch {
+            print("Unable to get client API Key!.")
+          throw error
+        }
+    }
+}
+
+// MARK: - Initialize Portal
+private extension ContentView {
+    func initializePortal() {
+        Task {
+            do {
+                
+                clientAPIKey = try await createClientAPIKey(portalAPIKey: "959498a9-88ba-40dd-bfa6-2528ce0a26e5")
+                guard let clientAPIKey else {
+                    print("Client API Key cannot be found")
+                    return
+                }
+                portal = try Portal(
+                    clientAPIKey,
+                    withRpcConfig: [
+                        "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp" : "https://api.mainnet-beta.solana.com",
+                        "solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1": "https://api.devnet.solana.com"
+                    ]
+                )
+                print("Portal initialized.")
+            } catch {
+                print("❌ Error initializing portal:", error)
+            }
+        }
+    }
+}
+
+// MARK: - Generate wallet
+private extension ContentView {
+    func generateWallet() {
+        guard let portal else {
+            print("Portal not initialized, please call \"initializePortal()\" first.")
+            return
+        }
+
+        Task {
+            do {
+                let wallets = try await portal.createWallet()
+                print("✅ wallet created successfully - Solana address: \(wallets.solana ?? "")")
+                solanaAddress = wallets.solana
+            } catch {
+                print("❌ Error generating wallet:", error)
+            }
+        }
+    }
+}
+
+// MARK: - Get Balance
+private extension ContentView {
+    func getBalance() {
+        Task {
+            if let balances = try? await getAssets() {
+                solanaBalance = balances.solanaBalance
+                pyusdBalance = balances.pyusdBalance
+            }
+        }
+    }
+
+    func getAssets() async throws -> (solanaBalance: String?, pyusdBalance: String?) {
+
+        guard let clientAPIKey else {
+            print("Client API Key cannot be found")
+            return (nil, nil)
+        }
+
+        do {
+          if let url = URL(string: "https://api.portalhq.io/api/v3/clients/me/chains/solana-devnet/assets") {
+
+              let requests = PortalRequests()
+              let data = try await requests.get(url, withBearerToken: clientAPIKey)
+              let decoder = JSONDecoder()
+              let response = try decoder.decode(Assets.self, from: data)
+              return (response.nativeBalance.balance, response.tokenBalances.getBalance(for: "PYUSD"))
+          }
+
+          throw URLError(.badURL)
+        } catch {
+            print("Unable to get assets with error: \(error)")
+            throw error
+        }
+    }
+}
+
+// MARK: - Assets
+struct Assets: Codable {
+    let nativeBalance: NativeBalance
+    let tokenBalances: [TokenBalance]
+}
+
+// MARK: - NativeBalance
+struct NativeBalance: Codable {
+    let balance: String
+    let decimals: Int
+    let name, rawBalance, symbol: String
+}
+
+// MARK: - TokenBalance
+struct TokenBalance: Codable {
+    let balance: String
+    let decimals: Int
+    let name, rawBalance, symbol: String
+    let metadata: TokenBalanceMetadata
+}
+
+// MARK: - TokenBalanceMetadata
+struct TokenBalanceMetadata: Codable {
+    let tokenAccountAddress, tokenMintAddress: String
+}
+
+extension Array where Element == TokenBalance {
+    func getBalance(for symbol: String) -> String? {
+        if let token = self.first(where: { $0.symbol == symbol }) {
+            return token.balance
+        } else {
+            return nil
+        }
+    }
 }
