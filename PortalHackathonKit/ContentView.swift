@@ -17,6 +17,9 @@ struct ContentView: View {
     @State var solanaBalance: String? = nil
     @State var pyusdBalance: String? = nil
 
+    @State private var recipientAddress: String = ""
+    @State private var amount: String = ""
+
     var body: some View {
         VStack {
             Button {
@@ -27,6 +30,18 @@ struct ContentView: View {
 
             if let solanaAddress {
                 Text("Solana Address: \(solanaAddress)")
+                Button {
+                    UIPasteboard.general.string = solanaAddress
+                } label: {
+                    Text("Copy")
+                }
+                
+                Button {
+                    getBalance()
+                } label: {
+                    Text("Refresh Balance")
+                }
+                
             }
 
             if let solanaBalance {
@@ -35,6 +50,23 @@ struct ContentView: View {
 
             if let pyusdBalance {
                 Text("PYUSD Balance: \(pyusdBalance)")
+            }
+
+            if let solanaAddress {
+                // TODO: - address
+                Text("Recipient Address:")
+                TextField("Recipient Address", text: $recipientAddress)
+                // TODO: - Amount
+                Text("Amount:")
+                TextField("Amount", text: $amount)
+                Button {
+                    if !recipientAddress.isEmpty, let amountDouble = Double(amount) {
+                        transferPYUSD(recipient: recipientAddress, token: "PYUSD", amount: amountDouble)
+                    }
+                } label: {
+                    Text("Transfer PYUSD")
+                }
+                
             }
         }
         .padding()
@@ -52,7 +84,7 @@ struct ContentView: View {
     ContentView()
 }
 
-// MARK: - Create a client
+// MARK: - Create a client API Key
 private extension ContentView {
     func createClientAPIKey(portalAPIKey: String) async throws -> String {
         // https://docs.portalhq.io/reference/custodian-api/v3-endpoints#create-a-new-client
@@ -96,7 +128,8 @@ private extension ContentView {
                     withRpcConfig: [
                         "solana:5eykt4UsFv8P8NJdTREpY1vzqKqZKvdp" : "https://api.mainnet-beta.solana.com",
                         "solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1": "https://api.devnet.solana.com"
-                    ]
+                    ],
+                    autoApprove: true
                 )
                 print("Portal initialized.")
             } catch {
@@ -162,20 +195,17 @@ private extension ContentView {
     }
 }
 
-// MARK: - Assets
 struct Assets: Codable {
     let nativeBalance: NativeBalance
     let tokenBalances: [TokenBalance]
 }
 
-// MARK: - NativeBalance
 struct NativeBalance: Codable {
     let balance: String
     let decimals: Int
     let name, rawBalance, symbol: String
 }
 
-// MARK: - TokenBalance
 struct TokenBalance: Codable {
     let balance: String
     let decimals: Int
@@ -183,7 +213,6 @@ struct TokenBalance: Codable {
     let metadata: TokenBalanceMetadata
 }
 
-// MARK: - TokenBalanceMetadata
 struct TokenBalanceMetadata: Codable {
     let tokenAccountAddress, tokenMintAddress: String
 }
@@ -196,4 +225,52 @@ extension Array where Element == TokenBalance {
             return nil
         }
     }
+}
+
+// MARK: - Transfer PYUSD to another account
+private extension ContentView {
+    func buildTransaction(recipient: String, token: String, amount: Double) async -> BuildTransactionResponse? {
+        guard let clientAPIKey else {
+            print("Client API Key cannot be found")
+            return nil
+        }
+
+        do {
+          if let url = URL(string: "https://api.portalhq.io/api/v3/clients/me/chains/solana-devnet/assets/send/build-transaction") {
+
+              let payload = ["to" : recipient, "token" : token, "amount" : "\(amount)"]
+              let requests = PortalRequests()
+              let data = try await requests.post(url, withBearerToken: clientAPIKey, andPayload: payload)
+              let decoder = JSONDecoder()
+              let response = try decoder.decode(BuildTransactionResponse.self, from: data)
+              print(response)
+              return response
+          }
+        } catch {
+            print("Unable to build transaction with error: \(error)")
+        }
+
+        return nil
+    }
+
+    func submitTransation(base64Transaction: String) async {
+        do {
+            let result = try await portal?.request("solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1", withMethod: "sol_signAndSendTransaction", andParams: [base64Transaction])
+            print("Transaction Hash: \(result)")
+        } catch {
+            print("Unable to sign and send transaction with error: \(error)")
+        }
+    }
+
+    func transferPYUSD(recipient: String, token: String, amount: Double) {
+        Task {
+            if let transaction = await buildTransaction(recipient: recipient, token: "PYUSD", amount: amount) {
+                await submitTransation(base64Transaction: transaction.transaction)
+            }
+        }
+    }
+}
+
+struct BuildTransactionResponse: Codable {
+    let transaction: String
 }
