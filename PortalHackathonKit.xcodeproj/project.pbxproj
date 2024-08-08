@@ -15,6 +15,12 @@
 		D85826672C62A5410030E001 /* PortalHackathonKitUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85826662C62A5410030E001 /* PortalHackathonKitUITests.swift */; };
 		D85826692C62A5410030E001 /* PortalHackathonKitUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D85826682C62A5410030E001 /* PortalHackathonKitUITestsLaunchTests.swift */; };
 		D85826772C62AC4D0030E001 /* PortalSwift in Frameworks */ = {isa = PBXBuildFile; productRef = D85826762C62AC4D0030E001 /* PortalSwift */; };
+		D8F0DCFA2C653E3D001B3201 /* PortalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DCF92C653E3D001B3201 /* PortalButton.swift */; };
+		D8F0DCFC2C65439B001B3201 /* PortalSolanaWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DCFB2C65439B001B3201 /* PortalSolanaWalletView.swift */; };
+		D8F0DCFE2C6545EF001B3201 /* LeadingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DCFD2C6545EF001B3201 /* LeadingText.swift */; };
+		D8F0DD002C655EA4001B3201 /* PortalSendPyUSDFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DCFF2C655EA4001B3201 /* PortalSendPyUSDFormView.swift */; };
+		D8F0DD022C6561D7001B3201 /* PortalWalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DD012C6561D7001B3201 /* PortalWalletViewModel.swift */; };
+		D8F0DD042C657B7A001B3201 /* PortalTransactionHashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DD032C657B7A001B3201 /* PortalTransactionHashView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +51,12 @@
 		D85826622C62A5410030E001 /* PortalHackathonKitUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PortalHackathonKitUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D85826662C62A5410030E001 /* PortalHackathonKitUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalHackathonKitUITests.swift; sourceTree = "<group>"; };
 		D85826682C62A5410030E001 /* PortalHackathonKitUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalHackathonKitUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D8F0DCF92C653E3D001B3201 /* PortalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalButton.swift; sourceTree = "<group>"; };
+		D8F0DCFB2C65439B001B3201 /* PortalSolanaWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalSolanaWalletView.swift; sourceTree = "<group>"; };
+		D8F0DCFD2C6545EF001B3201 /* LeadingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingText.swift; sourceTree = "<group>"; };
+		D8F0DCFF2C655EA4001B3201 /* PortalSendPyUSDFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalSendPyUSDFormView.swift; sourceTree = "<group>"; };
+		D8F0DD012C6561D7001B3201 /* PortalWalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalWalletViewModel.swift; sourceTree = "<group>"; };
+		D8F0DD032C657B7A001B3201 /* PortalTransactionHashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalTransactionHashView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,10 +108,12 @@
 		D858264A2C62A53F0030E001 /* PortalHackathonKit */ = {
 			isa = PBXGroup;
 			children = (
+				D8F0DCF72C653E12001B3201 /* Helpers */,
 				D858264B2C62A53F0030E001 /* PortalHackathonKitApp.swift */,
 				D858264D2C62A53F0030E001 /* ContentView.swift */,
 				D858264F2C62A5410030E001 /* Assets.xcassets */,
 				D85826512C62A5410030E001 /* Preview Content */,
+				D8F0DD012C6561D7001B3201 /* PortalWalletViewModel.swift */,
 			);
 			path = PortalHackathonKit;
 			sourceTree = "<group>";
@@ -127,6 +141,26 @@
 				D85826682C62A5410030E001 /* PortalHackathonKitUITestsLaunchTests.swift */,
 			);
 			path = PortalHackathonKitUITests;
+			sourceTree = "<group>";
+		};
+		D8F0DCF72C653E12001B3201 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D8F0DCF82C653E2A001B3201 /* Views */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		D8F0DCF82C653E2A001B3201 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D8F0DCF92C653E3D001B3201 /* PortalButton.swift */,
+				D8F0DCFB2C65439B001B3201 /* PortalSolanaWalletView.swift */,
+				D8F0DCFD2C6545EF001B3201 /* LeadingText.swift */,
+				D8F0DCFF2C655EA4001B3201 /* PortalSendPyUSDFormView.swift */,
+				D8F0DD032C657B7A001B3201 /* PortalTransactionHashView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,8 +299,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8F0DCFE2C6545EF001B3201 /* LeadingText.swift in Sources */,
+				D8F0DD042C657B7A001B3201 /* PortalTransactionHashView.swift in Sources */,
 				D858264E2C62A53F0030E001 /* ContentView.swift in Sources */,
+				D8F0DD022C6561D7001B3201 /* PortalWalletViewModel.swift in Sources */,
+				D8F0DCFA2C653E3D001B3201 /* PortalButton.swift in Sources */,
 				D858264C2C62A53F0030E001 /* PortalHackathonKitApp.swift in Sources */,
+				D8F0DD002C655EA4001B3201 /* PortalSendPyUSDFormView.swift in Sources */,
+				D8F0DCFC2C65439B001B3201 /* PortalSolanaWalletView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
