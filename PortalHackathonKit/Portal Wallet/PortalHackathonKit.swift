@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  PortalHackathonKit.swift
 //  PortalHackathonKit
 //
 //  Created by Ahmed Ragab on 06/08/2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct PortalHackathonKit: View {
 
     @ObservedObject private var portalWalletViewModel = PortalWalletViewModel()
 
@@ -54,5 +54,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    PortalHackathonKit()
 }
