@@ -100,7 +100,7 @@ private extension PortalWalletViewModel {
         Task {
             do {
                 // get ClientAPIKey given the portalAPIKey.
-                clientAPIKey = try await createClientAPIKey(portalAPIKey: "959498a9-88ba-40dd-bfa6-2528ce0a26e5")
+                clientAPIKey = try await createClientAPIKey(portalAPIKey: Constants.PORTAL_API_KEY)
 
                 guard let clientAPIKey else {
                     setState(.error(errorMessage: "Client API Key cannot be found"))

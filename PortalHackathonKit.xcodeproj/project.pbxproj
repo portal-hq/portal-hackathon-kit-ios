@@ -21,6 +21,7 @@
 		D8F0DD002C655EA4001B3201 /* PortalSendPyUSDFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DCFF2C655EA4001B3201 /* PortalSendPyUSDFormView.swift */; };
 		D8F0DD022C6561D7001B3201 /* PortalWalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DD012C6561D7001B3201 /* PortalWalletViewModel.swift */; };
 		D8F0DD042C657B7A001B3201 /* PortalTransactionHashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DD032C657B7A001B3201 /* PortalTransactionHashView.swift */; };
+		D8F0DD082C659B3F001B3201 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DD072C659B3F001B3201 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		D8F0DCFF2C655EA4001B3201 /* PortalSendPyUSDFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalSendPyUSDFormView.swift; sourceTree = "<group>"; };
 		D8F0DD012C6561D7001B3201 /* PortalWalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalWalletViewModel.swift; sourceTree = "<group>"; };
 		D8F0DD032C657B7A001B3201 /* PortalTransactionHashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalTransactionHashView.swift; sourceTree = "<group>"; };
+		D8F0DD072C659B3F001B3201 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +169,7 @@
 			children = (
 				D858264D2C62A53F0030E001 /* PortalHackathonKit.swift */,
 				D8F0DD012C6561D7001B3201 /* PortalWalletViewModel.swift */,
+				D8F0DD072C659B3F001B3201 /* Constants.swift */,
 			);
 			path = "Portal Wallet";
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				D858264C2C62A53F0030E001 /* PortalHackathonKitApp.swift in Sources */,
 				D8F0DD002C655EA4001B3201 /* PortalSendPyUSDFormView.swift in Sources */,
 				D8F0DCFC2C65439B001B3201 /* PortalSolanaWalletView.swift in Sources */,
+				D8F0DD082C659B3F001B3201 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
