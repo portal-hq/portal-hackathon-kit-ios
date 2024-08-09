@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Reusable Send PyUSD Form View.
 struct PortalSendPyUSDFormView: View {
     @Binding var recipientAddress: String
     @Binding var amount: String

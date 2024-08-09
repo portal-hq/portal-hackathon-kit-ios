@@ -12,6 +12,7 @@ enum ButtonStyle {
     case secondary
 }
 
+/// Reusable button View
 struct PortalButton: View {
     var title: String?
     var style: ButtonStyle = .primary

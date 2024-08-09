@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Reusable Wallet View
 struct PortalSolanaWalletView: View {
     let solanaAddress: String
     let solanaBalance: String?
@@ -61,7 +62,7 @@ struct PortalSolanaWalletView: View {
                 
                 if let pyUsdBalance {
                     HStack {
-                        Text("PYUSD BALANCE:")
+                        Text("PyUSD BALANCE:")
                             .font(.headline)
                             .bold()
 

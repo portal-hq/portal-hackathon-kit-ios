@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// Reusable Transaction Hash View
 struct PortalTransactionHashView: View {
 
     let transactionHash: String
