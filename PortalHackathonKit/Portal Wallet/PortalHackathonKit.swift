@@ -40,9 +40,9 @@ struct PortalHackathonKit: View {
                     portalWalletViewModel.getBalance()
                 }
 
-                // Send PyUSD Form View
-                PortalSendPyUSDFormView(recipientAddress: $recipientAddress, amount: $amount) {
-                    portalWalletViewModel.transferPyUSD(recipient: recipientAddress, amount: amount)
+                // Send PYUSD Form View
+                PortalSendPYUSDFormView(recipientAddress: $recipientAddress, amount: $amount) {
+                    portalWalletViewModel.transferPYUSD(recipient: recipientAddress, amount: amount)
                 }
 
                 // The Sent transaction hash

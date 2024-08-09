@@ -62,7 +62,7 @@ struct PortalSolanaWalletView: View {
                 
                 if let pyUsdBalance {
                     HStack {
-                        Text("PyUSD BALANCE:")
+                        Text("PYUSD BALANCE:")
                             .font(.headline)
                             .bold()
 
@@ -74,7 +74,7 @@ struct PortalSolanaWalletView: View {
                         Spacer()
                     }
                     
-                    LeadingText("\(pyUsdBalance) PyUSD")
+                    LeadingText("\(pyUsdBalance) PYUSD")
                         .font(.body)
                         .padding(.bottom, 10)
                 }

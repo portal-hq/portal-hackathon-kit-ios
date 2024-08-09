@@ -191,7 +191,7 @@ extension PortalWalletViewModel {
                 let data = try await requests.get(url, withBearerToken: clientAPIKey)
                 let decoder = JSONDecoder()
                 let response = try decoder.decode(Assets.self, from: data)
-                // return Solana native balance, and PyUSD balance.
+                // return Solana native balance, and PYUSD balance.
                 return (response.nativeBalance.balance, response.tokenBalances.getBalance(for: "PYUSD"))
             }
             
@@ -238,10 +238,10 @@ extension Array where Element == TokenBalance {
     }
 }
 
-// MARK: - Transfer PyUSD to another wallet
+// MARK: - Transfer PYUSD to another wallet
 extension PortalWalletViewModel {
-    /// Transfere PyUSD ``amount`` to ``recipient`` from the user wallet.
-    func transferPyUSD(recipient: String, amount: String) {
+    /// Transfer PYUSD ``amount`` to ``recipient`` from the user wallet.
+    func transferPYUSD(recipient: String, amount: String) {
         Task {
             // validate the recipient address is not empty and the amount is a valid double number.
             if !recipient.isEmpty, let amountDouble = Double(amount) {

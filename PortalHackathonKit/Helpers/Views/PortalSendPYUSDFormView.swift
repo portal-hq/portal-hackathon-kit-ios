@@ -1,5 +1,5 @@
 //
-//  PortalSendPyUSDFormView.swift
+//  PortalSendPYUSDFormView.swift
 //  PortalHackathonKit
 //
 //  Created by Ahmed Ragab on 08/08/2024.
@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-/// Reusable Send PyUSD Form View.
-struct PortalSendPyUSDFormView: View {
+/// Reusable Send PYUSD Form View.
+struct PortalSendPYUSDFormView: View {
     @Binding var recipientAddress: String
     @Binding var amount: String
     var onSendPress: (() -> Void)?
 
     var body: some View {
         VStack {
-            LeadingText("Send PyUSD")
+            LeadingText("Send PYUSD")
                 .font(.title)
                 .bold()
                 .padding(.bottom, 10)
@@ -37,7 +37,7 @@ struct PortalSendPyUSDFormView: View {
                     .frame(height: 40)
                     .overlay(RoundedRectangle(cornerRadius: 8).stroke(.gray, lineWidth: 1))
 
-                PortalButton(title: "Send PyUSD") {
+                PortalButton(title: "Send PYUSD") {
                     onSendPress?()
                 }
                 .frame(height: 45)
@@ -49,5 +49,5 @@ struct PortalSendPyUSDFormView: View {
 }
 
 #Preview {
-    PortalSendPyUSDFormView(recipientAddress: .constant(""), amount: .constant(""))
+    PortalSendPYUSDFormView(recipientAddress: .constant(""), amount: .constant(""))
 }

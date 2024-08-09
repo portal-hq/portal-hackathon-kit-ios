@@ -18,7 +18,7 @@
 		D8F0DCFA2C653E3D001B3201 /* PortalButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DCF92C653E3D001B3201 /* PortalButton.swift */; };
 		D8F0DCFC2C65439B001B3201 /* PortalSolanaWalletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DCFB2C65439B001B3201 /* PortalSolanaWalletView.swift */; };
 		D8F0DCFE2C6545EF001B3201 /* LeadingText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DCFD2C6545EF001B3201 /* LeadingText.swift */; };
-		D8F0DD002C655EA4001B3201 /* PortalSendPyUSDFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DCFF2C655EA4001B3201 /* PortalSendPyUSDFormView.swift */; };
+		D8F0DD002C655EA4001B3201 /* PortalSendPYUSDFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DCFF2C655EA4001B3201 /* PortalSendPYUSDFormView.swift */; };
 		D8F0DD022C6561D7001B3201 /* PortalWalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DD012C6561D7001B3201 /* PortalWalletViewModel.swift */; };
 		D8F0DD042C657B7A001B3201 /* PortalTransactionHashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DD032C657B7A001B3201 /* PortalTransactionHashView.swift */; };
 		D8F0DD082C659B3F001B3201 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DD072C659B3F001B3201 /* Constants.swift */; };
@@ -55,7 +55,7 @@
 		D8F0DCF92C653E3D001B3201 /* PortalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalButton.swift; sourceTree = "<group>"; };
 		D8F0DCFB2C65439B001B3201 /* PortalSolanaWalletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalSolanaWalletView.swift; sourceTree = "<group>"; };
 		D8F0DCFD2C6545EF001B3201 /* LeadingText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeadingText.swift; sourceTree = "<group>"; };
-		D8F0DCFF2C655EA4001B3201 /* PortalSendPyUSDFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalSendPyUSDFormView.swift; sourceTree = "<group>"; };
+		D8F0DCFF2C655EA4001B3201 /* PortalSendPYUSDFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalSendPYUSDFormView.swift; sourceTree = "<group>"; };
 		D8F0DD012C6561D7001B3201 /* PortalWalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalWalletViewModel.swift; sourceTree = "<group>"; };
 		D8F0DD032C657B7A001B3201 /* PortalTransactionHashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalTransactionHashView.swift; sourceTree = "<group>"; };
 		D8F0DD072C659B3F001B3201 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -158,7 +158,7 @@
 				D8F0DCF92C653E3D001B3201 /* PortalButton.swift */,
 				D8F0DCFB2C65439B001B3201 /* PortalSolanaWalletView.swift */,
 				D8F0DCFD2C6545EF001B3201 /* LeadingText.swift */,
-				D8F0DCFF2C655EA4001B3201 /* PortalSendPyUSDFormView.swift */,
+				D8F0DCFF2C655EA4001B3201 /* PortalSendPYUSDFormView.swift */,
 				D8F0DD032C657B7A001B3201 /* PortalTransactionHashView.swift */,
 			);
 			path = Views;
@@ -324,7 +324,7 @@
 				D8F0DD022C6561D7001B3201 /* PortalWalletViewModel.swift in Sources */,
 				D8F0DCFA2C653E3D001B3201 /* PortalButton.swift in Sources */,
 				D858264C2C62A53F0030E001 /* PortalHackathonKitApp.swift in Sources */,
-				D8F0DD002C655EA4001B3201 /* PortalSendPyUSDFormView.swift in Sources */,
+				D8F0DD002C655EA4001B3201 /* PortalSendPYUSDFormView.swift in Sources */,
 				D8F0DCFC2C65439B001B3201 /* PortalSolanaWalletView.swift in Sources */,
 				D8F0DD082C659B3F001B3201 /* Constants.swift in Sources */,
 			);
