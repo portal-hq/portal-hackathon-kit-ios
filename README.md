@@ -28,6 +28,8 @@ Here is the project important files:
 
 The rest of the files are some helper Views, really simple and self explaniatory (`PortalButton`, `PortalSolanaWalletView`, `LeadingText`, `PortalSendPyUSDFormView`, `PortalTransactionHashView`)
 
+Important Note: generating the `ClientAPIKey` should be in the backend side. But the example simplicity it is in the App in function `createClientAPIKey` in class `PortalWalletViewModel`.
+
 ## Faucets for App Testing
 To fully test this app (like for example to transfer funds) you will need to load your wallet with TestNet Solana and PyUSD tokens. Below are some faucets that you can use.
 

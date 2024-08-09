@@ -70,6 +70,7 @@ extension PortalWalletViewModel {
 // MARK: - Create a client API Key
 private extension PortalWalletViewModel {
     /// Given the ``portalAPIKey`` create ``ClientAPIKey`` for that client.
+    /// Important Note: In real life product this call should be in the Backend, just as an example we keep it here.
     func createClientAPIKey(portalAPIKey: String) async throws -> String {
         
         struct Response: Decodable {
