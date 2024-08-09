@@ -154,6 +154,7 @@ extension PortalWalletViewModel {
                 // get the balance for the wallet
                 getBalance()
             } catch {
+                setState(.error(errorMessage: "❌ Error generating wallet: \(error.localizedDescription)"))
                 print("❌ Error generating wallet:", error.localizedDescription)
             }
         }
