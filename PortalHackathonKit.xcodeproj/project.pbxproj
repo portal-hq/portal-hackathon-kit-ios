@@ -167,9 +167,9 @@
 		D8F0DD052C65808F001B3201 /* Portal Wallet */ = {
 			isa = PBXGroup;
 			children = (
+				D8F0DD072C659B3F001B3201 /* Constants.swift */,
 				D858264D2C62A53F0030E001 /* PortalHackathonKit.swift */,
 				D8F0DD012C6561D7001B3201 /* PortalWalletViewModel.swift */,
-				D8F0DD072C659B3F001B3201 /* Constants.swift */,
 			);
 			path = "Portal Wallet";
 			sourceTree = "<group>";
