@@ -5,12 +5,21 @@ This repository shows you how you can easily integrate Solana blockchain into yo
 1. Generate a Solana Wallet
 2. Fetch and display Solana and PyUSD balances.
 3. Transfer PyUSD to a given Solana address.
+4. Backup the wallet with password as the key to Portal servers.
+5. Recover the wallet with password as the key from Portal servers.
+
+Portal SDK also covers the following backup method which were not covered in this example app but you learn how to implement them through our [docs](https://docs.portalhq.io/guides/ios/back-up-a-wallet).
+
+1. Backup with iCloud
+2. Backup with GDrive
+3. Backup with Passkey
+
 
 ## How to Run This Example App
 1. Clone the repo to your local system
 2. Open the project `PortalHackathonKit.xcodeproj` in your Xcode.
 3. Go to your Portal Dashboard [settings page](https://app.portalhq.io/settings#client-api-keys) and create a client test API key (screenshots are attached below for your convenience).
-4. Update the **PORTAL_API_KEY** field in `PortalHackathonKit/PortalHackathonKit/Portal Wallet/Constants.swift` with your Portal API Key (screenshot below).
+4. Update the **PORTAL_CLIENT_API_KEY** field in `PortalHackathonKit/PortalHackathonKit/Portal Wallet/Constants.swift` with your Portal Client API Key (screenshot below).
 5. Run the app and it should work without any issues.
 
 Note: It would be better to use the Simulator over using Real Device, don't test on Real iPhone device while the Xcode debugger is attached.
@@ -26,9 +35,8 @@ Here is the project important files:
 2. `PortalHackathonKit.swift`: This is the SwiftUI main view that use the `PortalWalletViewModel` to execute and display all the functionality.
 3. `Constants.swift`: This file contains common Portal related constants (For this simple App it is only the `PORTAL_API_KEY`).
 
-The rest of the files are some helper Views, really simple and self explaniatory (`PortalButton`, `PortalSolanaWalletView`, `LeadingText`, `PortalSendPyUSDFormView`, `PortalTransactionHashView`)
+The rest of the files are some helper Views, really simple and self explaniatory (`PortalButton`, `LeadingText`, `PortalInitializedView`, `PortalSolanaWalletView`, `PortalSendPYUSDFormView`, `PortalTransactionHashView`)
 
-Important Note: generating the `ClientAPIKey` should be in the backend side. But the example simplicity it is in the App in function `createClientAPIKey` in class `PortalWalletViewModel`.
 
 ## Faucets for App Testing
 To fully test this app (like for example to transfer funds) you will need to load your wallet with TestNet Solana and PyUSD tokens. Below are some faucets that you can use.
@@ -44,11 +52,14 @@ To fully test this app (like for example to transfer funds) you will need to loa
 #### Transfer PyUSD Demo
 ![Generate Wallet](demos/send-pyusd.gif)
 
-#### Reload Sender Balance Demo
-![Generate Wallet](demos/relead-sender-balance.gif)
-
-#### Backup Recepient Balance Demo
+#### Reload Recepient Balance Demo
 ![Generate Wallet](demos/reload-recepient-balance.gif)
+
+#### Backup Wallet
+![Generate Wallet](demos/backup-wallet.gif)
+
+#### Recover Wallet
+![Generate Wallet](demos/recover-wallet.gif)
 
 ## Portal & PYUSD Documentation
 
