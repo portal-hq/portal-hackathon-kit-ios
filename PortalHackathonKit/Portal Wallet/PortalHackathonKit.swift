@@ -24,20 +24,23 @@ struct PortalHackathonKit: View {
                 ProgressView()
                     .scaleEffect(2)
                     .tint(.blue)
-
-            case .portalInitialized:
-                // Generate Buttom
-                PortalButton(title: "Generate") {
+                
+            case let .portalInitialized(isRecoverAvailable):
+                // Generate or Recover Wallet View
+                PortalInitializedView(isRecoverAvailable: isRecoverAvailable, onGenerateWalletClicked: {
                     portalWalletViewModel.generateWallet()
+                }) { password in
+                    portalWalletViewModel.recoverWallet(with: password)
                 }
-                .frame(width: 200, height: 45)
 
             case let .generated(address, solBalance, pyUSDBalance, transactionHash):
                 // Wallet Data View
                 PortalSolanaWalletView(solanaAddress: address, solanaBalance: solBalance, pyUsdBalance: pyUSDBalance, onCopyAddressClick:  {
                     portalWalletViewModel.copyAddress()
-                }) {
+                }, onRefreshBalanceClick:  {
                     portalWalletViewModel.getBalance()
+                }) { password in
+                    portalWalletViewModel.backupWallet(with: password)
                 }
 
                 // Send PYUSD Form View

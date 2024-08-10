@@ -8,7 +8,7 @@
 import Foundation
 
 enum Constants {
-    static var PORTAL_API_KEY: String {
-        return "YOUR PORTAL API KEY"
+    static var PORTAL_CLIENT_API_KEY: String {
+        return "YOUR PORTAL CLIENT API KEY"
     }
 }

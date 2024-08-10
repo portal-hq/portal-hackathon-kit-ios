@@ -13,14 +13,15 @@ public final class PortalWalletViewModel: ObservableObject {
 
     enum walletUIState {
         case loading
-        case portalInitialized
+        case portalInitialized(isRecoverAvailable: Bool)
         case generated(address: String, solBalance: String, pyUSDBalance: String, transactionHash: String?)
         case error(errorMessage: String)
     }
 
     // MARK: - Properties
     private var portal: Portal?
-    private var clientAPIKey: String?
+    private var clientAPIKey: String = Constants.PORTAL_CLIENT_API_KEY
+    private var isPasswordRecoverAvailable: Bool = false
     private var solanaAddress: String?
     private var solanaBalance: String?
     private var pyusdBalance: String?
@@ -67,48 +68,11 @@ extension PortalWalletViewModel {
     }
 }
 
-// MARK: - Create a client API Key
-private extension PortalWalletViewModel {
-    /// Given the ``portalAPIKey`` create ``ClientAPIKey`` for that client.
-    /// Important Note: In real life product this call should be in the Backend, just as an example we keep it here.
-    func createClientAPIKey(portalAPIKey: String) async throws -> String {
-        
-        struct Response: Decodable {
-            var clientApiKey: String
-        }
-        
-        do {
-            // API call to generate the ClientAPIKey for that client.
-            if let url = URL(string: "https://api.portalhq.io/api/v3/custodians/me/clients") {
-                let requests = PortalRequests()
-                let data = try await requests.post(url, withBearerToken: portalAPIKey)
-                let decoder = JSONDecoder()
-                let response = try decoder.decode(Response.self, from: data)
-                return response.clientApiKey
-            }
-            
-            throw URLError(.badURL)
-        } catch {
-            print("❌ Unable to get client API Key!.")
-            throw error
-        }
-    }
-}
-
 // MARK: - Initialize Portal
 private extension PortalWalletViewModel {
     func initializePortal() {
         Task {
             do {
-                // get ClientAPIKey given the portalAPIKey.
-                clientAPIKey = try await createClientAPIKey(portalAPIKey: Constants.PORTAL_API_KEY)
-
-                guard let clientAPIKey else {
-                    setState(.error(errorMessage: "Client API Key cannot be found"))
-                    print("❌ Client API Key cannot be found")
-                    return
-                }
-
                 // Initialize Portal SDK
                 portal = try Portal(
                     clientAPIKey,
@@ -119,8 +83,11 @@ private extension PortalWalletViewModel {
                     autoApprove: true // keep it ``true`` to auto approve all the signing requests if needed.
                 )
 
+                // check if the Recover with password available or not
+                isPasswordRecoverAvailable = try await self.portal?.availableRecoveryMethods().contains(.Password) ?? false
+
                 // Update the UI that Portal Initialized
-                setState(.portalInitialized)
+                setState(.portalInitialized(isRecoverAvailable: isPasswordRecoverAvailable))
                 print("✅ Portal initialized.")
             } catch {
                 setState(.error(errorMessage: "❌ Error initializing portal: \(error.localizedDescription)"))
@@ -154,8 +121,8 @@ extension PortalWalletViewModel {
                 // get the balance for the wallet
                 getBalance()
             } catch {
-                setState(.error(errorMessage: "❌ Error generating wallet: \(error.localizedDescription)"))
-                print("❌ Error generating wallet:", error.localizedDescription)
+                setState(.portalInitialized(isRecoverAvailable: isPasswordRecoverAvailable))
+                print("❌ Error generating wallet:", error.localizedDescription, "\n Maybe this Client API key has wallet already generated, if that is the case you may recover or provide new Client API Key to generate new wallet.")
             }
         }
     }
@@ -178,12 +145,6 @@ extension PortalWalletViewModel {
 
     /// Get the assets for the user to get all the balances
     private func getAssets() async throws -> (solanaBalance: String?, pyusdBalance: String?) {
-
-        // early return if the client API Key not found.
-        guard let clientAPIKey else {
-            print("❌ Client API Key cannot be found")
-            return (nil, nil)
-        }
         
         do {
             // API call to get the assets for the user.
@@ -268,14 +229,6 @@ extension PortalWalletViewModel {
             // Note: we only need the ``transaction`` that's why we only decode it here.
             let transaction: String
         }
-
-        // early return if the client API Key not found.
-        guard let clientAPIKey else {
-            // refresh the UI to display the wallet data instead of the loader
-            refreshWalletUI()
-            print("❌ Client API Key cannot be found")
-            return nil
-        }
         
         do {
             // API call to build the transaction.
@@ -314,6 +267,78 @@ extension PortalWalletViewModel {
             // refresh the UI to display the wallet data instead of the loader
             refreshWalletUI()
             print("❌ Unable to sign and send transaction with error: \(error)")
+        }
+    }
+}
+
+// MARK: - Backup Wallet
+extension PortalWalletViewModel {
+    func backupWallet(with password: String) {
+        // early return if the portal is not initialized.
+        guard let portal else {
+            setState(.error(errorMessage: "❌ Portal not initialized, please call \"initializePortal()\" first."))
+            print("❌ Portal not initialized, please call \"initializePortal()\" first.")
+            return
+        }
+
+        Task {
+            if !password.isEmpty {
+                setState(.loading)
+
+                do {
+                    // set the password
+                    try portal.setPassword(password)
+                    
+                    // backup the wallet
+                    _ = try await portal.backupWallet(.Password)
+
+                    refreshWalletUI()
+                    print("✅ Backup successfully.")
+                } catch {
+                    // refresh the UI to display the wallet data instead of the loader
+                    refreshWalletUI()
+                    print("❌ Unable to backup the wallet with error: \(error)")
+                }
+            } else {
+                print("❌ please enter valid password to continue.")
+            }
+        }
+    }
+}
+
+// MARK: - Recover Wallet
+extension PortalWalletViewModel {
+    func recoverWallet(with password: String) {
+        // early return if the portal is not initialized.
+        guard let portal else {
+            setState(.error(errorMessage: "❌ Portal not initialized, please call \"initializePortal()\" first."))
+            print("❌ Portal not initialized, please call \"initializePortal()\" first.")
+            return
+        }
+
+        Task {
+            if !password.isEmpty {
+                setState(.loading)
+
+                do {
+                    // set the password
+                    try portal.setPassword(password)
+                    
+                    // recover the wallet
+                    let wallets = try await portal.recoverWallet(.Password)
+
+                    print("✅ wallet recoverd successfully - Solana address: \(wallets.solana ?? "")")
+                    solanaAddress = wallets.solana
+
+                    // get the balance for the wallet
+                    getBalance()
+                } catch {
+                    setState(.portalInitialized(isRecoverAvailable: isPasswordRecoverAvailable))
+                    print("❌ Unable to recover the wallet with error: \(error)")
+                }
+            } else {
+                print("❌ please enter valid password to continue.")
+            }
         }
     }
 }

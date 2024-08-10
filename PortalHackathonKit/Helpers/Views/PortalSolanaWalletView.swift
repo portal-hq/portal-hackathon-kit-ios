@@ -15,13 +15,24 @@ struct PortalSolanaWalletView: View {
 
     var onCopyAddressClick: (() -> Void)?
     var onRefreshBalanceClick: (() -> Void)?
+    var onBackupWalletClick: ((_ password: String) -> Void)?
     
+    @State private var showPasswordAlert = false
+    @State private var backupPassword: String = ""
+
     var body: some View {
         VStack {
-            LeadingText("Wallet")
-                .font(.title)
-                .bold()
-                .padding(.bottom, 10)
+            HStack(alignment: .center) {
+                Text("Wallet")
+                    .font(.title)
+                    .bold()
+                Spacer()
+                PortalButton(title: "Backup Wallet", style: .secondary) {
+                    showPasswordAlert.toggle()
+                }
+                .frame(width: 150, height: 30)
+            }
+            .padding(.bottom, 10)
 
             VStack {
                 HStack {
@@ -80,6 +91,16 @@ struct PortalSolanaWalletView: View {
                 }
             }
             .padding([.leading, .trailing], 20)
+        }
+        .alert("Enter Password", isPresented: $showPasswordAlert) {
+            SecureField("PASSWORD", text: $backupPassword)
+                .keyboardType(.numberPad)
+                .textContentType(.password)
+            
+            Button("Submit") {
+                onBackupWalletClick?(backupPassword)
+            }
+            Button("Cancel", role: .cancel, action: {})
         }
     }
 }

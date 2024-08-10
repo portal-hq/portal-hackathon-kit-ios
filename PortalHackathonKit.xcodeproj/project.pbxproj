@@ -22,6 +22,7 @@
 		D8F0DD022C6561D7001B3201 /* PortalWalletViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DD012C6561D7001B3201 /* PortalWalletViewModel.swift */; };
 		D8F0DD042C657B7A001B3201 /* PortalTransactionHashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DD032C657B7A001B3201 /* PortalTransactionHashView.swift */; };
 		D8F0DD082C659B3F001B3201 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DD072C659B3F001B3201 /* Constants.swift */; };
+		D8F0DD0A2C66E8C8001B3201 /* PortalInitializedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8F0DD092C66E8C8001B3201 /* PortalInitializedView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		D8F0DD012C6561D7001B3201 /* PortalWalletViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalWalletViewModel.swift; sourceTree = "<group>"; };
 		D8F0DD032C657B7A001B3201 /* PortalTransactionHashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalTransactionHashView.swift; sourceTree = "<group>"; };
 		D8F0DD072C659B3F001B3201 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D8F0DD092C66E8C8001B3201 /* PortalInitializedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalInitializedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,8 +158,9 @@
 			isa = PBXGroup;
 			children = (
 				D8F0DCF92C653E3D001B3201 /* PortalButton.swift */,
-				D8F0DCFB2C65439B001B3201 /* PortalSolanaWalletView.swift */,
 				D8F0DCFD2C6545EF001B3201 /* LeadingText.swift */,
+				D8F0DD092C66E8C8001B3201 /* PortalInitializedView.swift */,
+				D8F0DCFB2C65439B001B3201 /* PortalSolanaWalletView.swift */,
 				D8F0DCFF2C655EA4001B3201 /* PortalSendPYUSDFormView.swift */,
 				D8F0DD032C657B7A001B3201 /* PortalTransactionHashView.swift */,
 			);
@@ -327,6 +330,7 @@
 				D8F0DD002C655EA4001B3201 /* PortalSendPYUSDFormView.swift in Sources */,
 				D8F0DCFC2C65439B001B3201 /* PortalSolanaWalletView.swift in Sources */,
 				D8F0DD082C659B3F001B3201 /* Constants.swift in Sources */,
+				D8F0DD0A2C66E8C8001B3201 /* PortalInitializedView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
