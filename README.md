@@ -1,4 +1,6 @@
-# Portal Hackathon iOS Helper Repository
+![Portal Logo](https://cdn.prod.website-files.com/66a9400bd5456b4248f11c92/66a940c97f391719bd5ba2b9_Portal%20logo%201.png)
+
+# Portal Hackathon Kit - iOS
 
 This repository shows you how you can easily integrate Solana blockchain into your iOS app using the [Portal iOS SDK](https://docs.portalhq.io/guides/ios). It covers the following features.
 
@@ -61,7 +63,7 @@ To fully test this app (like for example to transfer funds) you will need to loa
 #### Recover Wallet
 ![Generate Wallet](demos/recover-wallet.gif)
 
-## Portal & PYUSD Documentation
+## Portal Documentation
 
 ### Portal SDK Reference
 
@@ -106,4 +108,4 @@ Portal supplies several APIs for simplifying your development.
 
 ## Help
 
-Need help or want to request a feature? Reach out to the PayPal & Portal teams on the [official hackathon Slack channel](https://portalcommunity.slack.com/archives/C07EZFF9N78).
+Need help or want to request a feature? Reach out to us on the [official Portal Community Slack](https://portalcommunity.slack.com/archives/C07EZFF9N78).
