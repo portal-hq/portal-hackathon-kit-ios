@@ -666,8 +666,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/portal-hq/PortalSwift";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.2.1;
+				kind = exactVersion;
+				version = 5.0.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

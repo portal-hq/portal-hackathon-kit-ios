@@ -115,7 +115,7 @@ extension PortalWalletViewModel {
             do {
                 // create a the wallet
                 let wallets = try await portal.createWallet()
-                print("✅ wallet created successfully - Solana address: \(wallets.solana ?? "")")
+                print("✅ wallet created successfully - Solana address: \(wallets.solana)")
                 solanaAddress = wallets.solana
 
                 // get the balance for the wallet
@@ -206,14 +206,13 @@ extension PortalWalletViewModel {
     func transferPYUSD(recipient: String, amount: String) {
         Task {
             // validate the recipient address is not empty and the amount is a valid double number.
-            if !recipient.isEmpty, let amountDouble = Double(amount) {
+            if !recipient.isEmpty {
                 // Update the UI show loader
                 setState(.loading)
-                // build the transaction
-                if let transaction = await buildTransaction(recipient: recipient, token: "PYUSD", amount: amountDouble) {
-                    // submit the transaction
-                    await submitTransaction(base64Transaction: transaction)
-                }
+                // build the send asset params
+                let params = SendAssetParams(to: recipient, amount: amount, token: "PYUSD")
+                // send the asset
+                await sendAsset(params: params)
             } else {
                 // print error message if the input is not valid.
                 print("❌ please enter valid address and amount in order to continue.")
@@ -252,12 +251,12 @@ extension PortalWalletViewModel {
         return nil
     }
 
-    /// Submit the transaction given the ``base64Transaction`` String.
-    private func submitTransaction(base64Transaction: String) async {
+    /// Send asset given the ``SendAssetParams``.
+    private func sendAsset(params: SendAssetParams) async {
         do {
-            // sign and send the transaction given the ``chainId``.
-            let result = try await portal?.request("solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1", withMethod: "sol_signAndSendTransaction", andParams: [base64Transaction])
-            if let hash = result?.result as? String {
+            // send the asset given the ``chainId``.
+            let response = try await portal?.sendAsset(chainId: "solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1", params: params)
+            if let hash = response?.txHash {
                 // display the hash to the user
                 transactionHash = hash
                 refreshWalletUI()
