@@ -69,9 +69,10 @@ To fully test this app (like for example to transfer funds) you will need to loa
 
 Portal's SDKs have several pieces of core functionality.
 
-- [Generating a Wallet](https://docs.portalhq.io/guides/web/create-a-wallet): This function creates MPC key shares on your local device and the Portal servers. These key shares support all EVM chains and Solana.
-- [Signing a Transaction](https://docs.portalhq.io/guides/web/sign-a-transaction): This function signs a provided transaction, and can broadcast that transaction to a chain when an RPC gateway URL is provided.
-- [Signature Hooks](https://docs.portalhq.io/guides/web/add-custom-signature-hooks): By default this repo will submit a transaction without prompting a user, but you can use signature hooks to build a prompt for users before submitting a transaction for signing.
+- [Generating a Wallet](https://docs.portalhq.io/guides/ios/create-a-wallet): This function creates MPC key shares on your local device and the Portal servers. These key shares support all EVM chains and Solana.
+- [Signing a Transaction](https://docs.portalhq.io/guides/ios/sign-a-transaction): This function signs a provided transaction, and can broadcast that transaction to a chain when an RPC gateway URL is provided.
+- [Send Tokens](https://docs.portalhq.io/guides/ios/send-tokens): This function allows you to send tokens from your Portal wallet to another address, supporting both EVM chains and Solana.
+- [Signature Hooks](https://docs.portalhq.io/guides/ios/add-custom-signature-hooks): By default this repo will submit a transaction without prompting a user, but you can use signature hooks to build a prompt for users before submitting a transaction for signing.
 
 ### Portal APIs
 
