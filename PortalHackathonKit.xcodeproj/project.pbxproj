@@ -667,7 +667,7 @@
 			repositoryURL = "https://github.com/portal-hq/PortalSwift";
 			requirement = {
 				kind = exactVersion;
-				version = 5.0.1;
+				version = 6.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
